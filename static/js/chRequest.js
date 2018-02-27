@@ -35,7 +35,7 @@ function requestData(url,method,success,params,failCallBack){
       },
       fail:function(data){
           if(failCallBack){
-              failCallBack();
+              failCallBack(data);
           }else{
               if(onFail instanceof Function){
                   onFail(data);
@@ -47,7 +47,7 @@ function requestData(url,method,success,params,failCallBack){
 //   paramObj = $.extend(true,{},paramObj,params);
   let tempObj = Object.assign({}, paramObj, params)
   paramObj = JSON.parse(JSON.stringify(tempObj))
- /* alert(JSON.stringify(paramObj));*/
+//  alert(JSON.stringify(paramObj));
   try {
       ch.native.network.networkRequest(paramObj);
   } catch (e) {
