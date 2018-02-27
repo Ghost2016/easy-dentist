@@ -3,9 +3,9 @@
     <!-- <h1>我的工作</h1> -->
     <!-- <group-title> 我的工作具体项 </group-title> -->
     <div class="swiper-title-wrapper" >
-      <i class="go-back" @click="swiper_index ? swiper_index-- : swiper_index"></i>
+      <i class="go-back" @click="goBack"></i>
       <span class="swiper-title">2018年9月的业绩</span>
-      <i class="go-forward" @click="(swiper_index === swiper_list.length - 1) ? swiper_index : swiper_index++"></i>
+      <i class="go-forward" @click="goForward"></i>
     </div>
     <swiper class="easy-swiper" v-model="swiper_index" :height="'100px'" @on-index-change="onIndexChange" :show-dots="false">
       <swiper-item v-for="(item, index) in swiper_list" :key="index">
@@ -143,6 +143,20 @@ export default {
     },
     onIndexChange(index) {
       this.swiper_index = index
+    },
+    // 向前
+    goBack() {
+      if (this.swiper_index === 0) {
+        // this.request()
+      } else {
+        this.swiper_index--
+      }
+    },
+    // 往回
+    goForward() {
+      if (this.swiper_index !== (this.swiper_list.length - 1)) {
+        this.swiper_index++
+      }
     }
   }
 }
