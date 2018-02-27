@@ -1,25 +1,27 @@
 <template>
   
   <div style="height:100%;">
-   <view-box ref="viewBox">
-     <x-header slot="header" style="height:50px;width:100%;position:absolute;left:0;top:0;z-index:100;"></x-header>
-     <router-view style="padding-top:50px;z-index:1"></router-view>
+   <view-box ref="viewBox" :body-padding-bottom="isIndex ? '50px' : '0'" :body-padding-top="'50px'">
+     <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;"></x-header>
+     <router-view style="height:100%;margin:0 0;z-index:1;overflow:scroll;"></router-view>
      <!-- <router-view></router-view> -->
-     <tabbar style="position:fixed;z-index:2" v-model="selectedItem">
+     <tabbar v-if="isIndex" style="position:fixed;z-index:2" v-model="selectedItem">
       <tabbar-item link="/work">
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">我的工作</span>
       </tabbar-item>
-      <tabbar-item show-dot link="/patient">
-            <!-- <tabbar-item show-dot @on-item-click="$router.push({path:'/patient'})"> -->
+      <!-- <tabbar-item show-dot link="/patient"> -->
+      <tabbar-item show-dot @on-item-click="$router.replace({path:'/patient'})">
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">我的患者</span>
       </tabbar-item>
-      <tabbar-item link="/find">
+      <!-- <tabbar-item link="/find"> -->
+      <tabbar-item show-dot @on-item-click="$router.replace({path:'/find'})">
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">发现</span>
       </tabbar-item>
-      <tabbar-item badge="2" link="/personalCenter">
+      <!-- <tabbar-item badge="2" link="/personalCenter"> -->
+      <tabbar-item badge="2" @on-item-click="$router.replace({path:'/personalCenter'})">
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">个人中心</span>
       </tabbar-item>
@@ -48,6 +50,11 @@ export default {
       // its initial state.
       msg: 'Hello World!',
       selectedItem: 0
+    }
+  },
+  computed: {
+    isIndex() {
+      return !/^\/.*\/+.*$/.test(this.$route.path)
     }
   },
   mounted() {

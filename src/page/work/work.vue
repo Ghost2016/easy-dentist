@@ -49,7 +49,7 @@
     <x-button @click.native="swiper_index = 1">go to 1</x-button>
     <x-button @click.native="swiper_index = 2">go to 2</x-button> -->
     <grid>
-      <grid-item v-for="i in topItems" :key="i.name">
+      <grid-item v-for="i in topItems" :key="i.name" :link="i.url">
         <img slot="icon" :src="i.icon" @error="setErrorImage"/>
         <span class="grid-center">{{i.name}}</span>
       </grid-item>
@@ -89,19 +89,23 @@ export default {
       topItems: [
         {
           name: '新增患者',
-          icon: require('@/assets/logo.png')
+          icon: require('@/assets/logo.png'),
+          url: '/patient/add'
         },
         {
           name: '无号预约',
-          icon: require('@/assets/logo.png')
+          icon: require('@/assets/logo.png'),
+          url: ''
         },
         {
           name: '有号预约',
-          icon: require('@/assets/logo.png')
+          icon: require('@/assets/logo.png'),
+          url: ''
         },
         {
           name: '新增回访',
-          icon: require('@/assets/logo.png')
+          icon: require('@/assets/logo.png'),
+          url: ''
         }
       ],
       bottomItems: [

@@ -6,6 +6,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -32,6 +33,16 @@ export default new Router({
           path: 'personalCenter',
           name: 'personalCenter',
           component: _import('personalCenter/personalCenter')
+        },
+        {
+          path: '/patient/add',
+          name: 'addPatient',
+          component: _import('patient/patientEdit')
+        },
+        {
+          path: '/patient/edit',
+          name: 'editPatient',
+          component: _import('patient/patientEdit')
         }
       ]
     },
@@ -40,5 +51,9 @@ export default new Router({
       name: 'hello',
       component: _import('hello')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    // alert(savedPosition)
+    return { x: 0, y: 0 }
+  }
 })
