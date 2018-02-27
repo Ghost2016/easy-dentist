@@ -1,15 +1,17 @@
 <template>
-  <div>
-    <div class="vux-demo">
-      <h1>轻松牙医</h1>
-    </div>
-    <router-view></router-view>
-    <tabbar>
-      <tabbar-item link="/work" selected>
+  
+  <div style="height:100%;">
+   <view-box ref="viewBox">
+     <x-header slot="header" style="height:50px;width:100%;position:absolute;left:0;top:0;z-index:100;"></x-header>
+     <router-view style="padding-top:50px;z-index:1"></router-view>
+     <!-- <router-view></router-view> -->
+     <tabbar style="position:fixed;z-index:2" v-model="selectedItem">
+      <tabbar-item link="/work">
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">我的工作</span>
       </tabbar-item>
       <tabbar-item show-dot link="/patient">
+            <!-- <tabbar-item show-dot @on-item-click="$router.push({path:'/patient'})"> -->
         <img slot="icon" src="@/assets/logo.png">
         <span slot="label">我的患者</span>
       </tabbar-item>
@@ -22,18 +24,21 @@
         <span slot="label">个人中心</span>
       </tabbar-item>
     </tabbar>
-  </div>
+   </view-box>
+ </div>
 </template>
 
 <script>
-import { Group, Cell, Tabbar, TabbarItem } from 'vux'
+import { ViewBox, XHeader, Group, Cell, Tabbar, TabbarItem } from 'vux'
 
 export default {
   components: {
     Group,
     Cell,
     Tabbar,
-    TabbarItem
+    TabbarItem,
+    ViewBox,
+    XHeader
   },
   data() {
     return {
@@ -41,7 +46,8 @@ export default {
       // with hot-reload because the reloaded component
       // preserves its current state and we are modifying
       // its initial state.
-      msg: 'Hello World!'
+      msg: 'Hello World!',
+      selectedItem: 0
     }
   },
   mounted() {
@@ -50,6 +56,25 @@ export default {
     // window.requestData(url, method, (data) => {
     //   alert(data)
     // }, {}, undefined)
+  },
+  created() {
+    // dlnacasts.on('update', function(player) {
+    //   console.log('all players: ', dlnacasts.players)
+    //   player.play('http://example.com/my-video.mp4', { title: 'my video', type: 'video/mp4' })
+    // })
+  },
+  watch: {
+    $route(route) {
+      if (route.path.indexOf('/work') > -1) {
+        this.selectedItem = 0
+      } else if ((route.path.indexOf('/patient') > -1)) {
+        this.selectedItem = 1
+      } else if ((route.path.indexOf('/find') > -1)) {
+        this.selectedItem = 2
+      } else if ((route.path.indexOf('/personalCenter') > -1)) {
+        this.selectedItem = 3
+      }
+    }
   }
 }
 </script>
