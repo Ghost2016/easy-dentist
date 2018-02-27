@@ -11,12 +11,12 @@ export default new Router({
       path: '/',
       name: 'index',
       component: _import('index/index'),
+      redirect: '/work',
       children: [
         {
           path: 'work',
           name: 'work',
-          component: _import('work/work'),
-          alias: '/'
+          component: _import('work/work')
         },
         {
           path: 'patient',
